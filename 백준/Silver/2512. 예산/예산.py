@@ -2,34 +2,20 @@ import sys
 input = sys.stdin.readline
 
 n = int(input())
-req = list(map(int, input().split()))
-total = int(input())
+budget = tuple(map(int, input().split()))
+m = int(input())
 
-if sum(req) <= total:
-    print(max(req))
-    exit()
+l, r = 0, max(budget) + 1
+while l < r:
+    mid = (l + r) // 2
 
-# binary search
-limit_min, limit_max = 0, total
-bef_min, bef_max = 0, total
+    ret = 0
+    for b in budget:
+        ret += min(b, mid)
 
-while True:
-    limit_mid = int((limit_min + limit_max) // 2)
-    
-    calc = 0
-    for r in req:
-        if r > limit_mid:
-            calc += limit_mid
-        else:
-            calc += r
-
-    bef_min, bef_max = limit_min, limit_max
-
-    if calc > total:
-        limit_max = limit_mid
+    if ret <= m:
+        l = mid + 1
     else:
-        limit_min = limit_mid
+        r = mid
 
-    if bef_min == limit_min and bef_max == limit_max:
-        print(limit_min)
-        break
+print(r - 1)
