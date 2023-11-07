@@ -12,7 +12,7 @@ for _ in range(t):
         wear[b] += 1
 
     answer = 1
-    for w in wear.keys():
-        answer *= wear[w] + 1
+    for v in wear.values():
+        answer *= v + 1
 
     print(answer - 1)
